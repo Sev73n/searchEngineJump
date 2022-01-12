@@ -117,6 +117,7 @@
 // @match          *://*.qcc.com/*
 // @match          *://*.tianyancha.com/*
 // @match          *://www.iciba.com/*
+// @match          *://fsou.cc/*
 
 // @grant       GM_getValue
 // @grant       GM_setValue
@@ -230,6 +231,31 @@
                 },
                 stylish:".headBlock,.se_common_hint{display:none !important}"
             },
+              {
+    name: "f搜",
+    enabled: true,
+    url: /^https?:\/\/fsou\.cc\/search/,
+    engineList: 'web',
+    style: '\
+                    margin-left: 50px;\
+                    z-index: -99999;\
+                    margin-top:5px;\
+                ',
+    style_ACBaidu: '\
+                    text-align: center;\
+                    z-index:-99999;\
+                    margin-top:5px;\
+                ',
+    insertIntoDoc: {
+        target: 'css;.input-with-suggestion',
+        keyword: function () {
+            var input = document.getElementById('search-input');
+            if (input) return input.value;
+        },
+        where: 'beforeEnd',
+    },
+    stylish: '.tabs-bottom-border{top:172px !important}'
+},
             {name: "必应网页搜索",
                 url: /^https?:\/\/[^.]*\.bing\.com\/search/,
                 enabled: true,
@@ -5541,6 +5567,7 @@
         /^https?:\/\/google\.infinitynewtab\.com\/\?q/,
         /^https?:\/\/www\.zhihu\.com\/search\?/,
         /^https?:\/\/www\.iciba\.com\/word\?/,
+        /^https?:\/\/fsou\.cc\/search\?/,
     ]
 
     var hashListTag = hashList.some(function hashUrl(element, index, array){
